@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaEyeSlash } from "react-icons/fa";
 import { FaEye } from "react-icons/fa6";
+import toast from 'react-hot-toast';
 
 function Register() {
     const [data, setData] = useState({
@@ -26,12 +27,23 @@ function Register() {
 
     
   const validValue = Object.values(data).every(el => el)
+
+  const handleSubmit = (e) =>{
+       e.prevDefault()
+
+       if(data.password !== data.confirmPassword){
+               toast.error(
+                  "Password and confirm password must be same"
+               )
+        return 
+       }
+  } 
   return (
     <section className=' w-full container mx-auto px-1 '>
-        <div className=' bg-white  my-4 w-full max-w-lg mx-auto rounded p-4'>
+        <div className=' bg-white  my-4 w-full max-w-lg mx-auto rounded p-7'>
                  <p>Welcome To Binkit..</p>
 
-                 <form className='grid gap-4 mt-6'>
+                 <form className='grid gap-4 mt-6' onSubmit={handleSubmit}>
                     <div className='grid gap-1'>
                         <label htmlFor='name'>Name:</label>
                         <input
@@ -85,7 +97,7 @@ function Register() {
                         <label htmlFor='confirmPassword'>Confirm Password:</label>
                        <div className='bg-blue-50 p-2 border rounded flex items-center focus-within:border-primary-200'>
                        <input
-                           type= {showPassword ? "text" : "password"}
+                           type= {showConfirmPassword ? "text" : "password"}
                            id='confirmPassword'
                            className='w-full outline-none'
                            name='confirmPassword'
@@ -106,7 +118,7 @@ function Register() {
                     </div>
                     </div>
 
-                    <button className={` ${validValue ? "bg-green-600" : "bg-gray-500"} text-white py-2 rounded font-semibold my-3 tracking-wide` }>Register</button>
+                    <button disabled={!validValue} className={` ${validValue ? "bg-green-600 hover:bg-green-400"  : "bg-gray-500"} text-white py-2 rounded font-semibold my-3 tracking-wide` }>Register</button>
                     
                  </form>
         </div>
