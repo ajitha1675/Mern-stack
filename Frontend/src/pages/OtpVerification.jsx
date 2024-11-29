@@ -41,7 +41,7 @@ const OtpVerification = () => {
 
             if(response.data.success){
                 toast.success(response.data.message)
-                setData("","","","","")
+                setData("","","","","","")
                 //navigate("/verification-otp")
             }
 
