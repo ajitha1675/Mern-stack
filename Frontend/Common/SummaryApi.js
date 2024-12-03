@@ -1,3 +1,5 @@
+import ResetPassword from "../src/pages/ResetPassword"
+
 export const baseURL = "http://localhost:8081"
 
 const SummaryApi = {
@@ -13,8 +15,12 @@ const SummaryApi = {
         url:'/api/user/forgot-password',
         method: 'put'
     },
-    forgot_password_otp:{
-        url:'/api/user/forgot-password-otp',
+    forgot_password_otp_verification:{
+        url:'/api/user/verify-forgot-password-otp',
+        method: 'put'
+    },
+    resetPassword :{
+        url:'/api/user/reset-password',
         method: 'put'
     }
 }
