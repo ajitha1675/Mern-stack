@@ -469,3 +469,25 @@ export async function refreshToken(req,res){
         })
     }
 }
+
+//get login user details
+export async function userDetails(req,res){
+    try {
+        const userId = req.userId
+
+        const user = await userModel.findById(userId)
+
+        return res.json({
+            message: 'user details',
+            data: user,
+            error: false,
+            success: true
+        })
+    } catch (error) {
+        return res.status(500).json({
+            message: "Something is wrong",
+            error: true,
+            
+        })
+    }
+}

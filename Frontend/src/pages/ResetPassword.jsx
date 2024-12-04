@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 const ResetPassword = () => {
@@ -47,6 +48,12 @@ const ResetPassword = () => {
     const handleSubmit = async(e)=>{
         e.preventDefault()
 
+        //optional part
+        if(data.newPassword !== data.confirmPassword){
+            toast.error("New password and confirm password must be same.")
+            return
+        }
+
         try {
             const response = await Axios({
                 ...SummaryApi.resetPassword, 
@@ -59,6 +66,8 @@ const ResetPassword = () => {
 
             if(response.data.success){
                 toast.success(response.data.message)
+                localStorage.setItem('accessToken',response.data.data.accesstoken)
+                localStorage.setItem('refreshToken',response.data.data.refreshToken)
                 navigate("/verification-otp",{
                     state : data
                 })
@@ -132,7 +141,7 @@ const ResetPassword = () => {
                             </div>
                         </div> 
             </div>
-        <button disabled={!valideValue} className={` ${valideValue ? "bg-green-800 hover:bg-green-700" : "bg-gray-500" }    text-white py-2 rounded font-semibold my-3 tracking-wide`}>Send Otp</button>
+        <button disabled={!valideValue} className={` ${valideValue ? "bg-green-800 hover:bg-green-700" : "bg-gray-500" }    text-white py-2 rounded font-semibold my-3 tracking-wide`}>Change password</button>
 
         </form>
 
