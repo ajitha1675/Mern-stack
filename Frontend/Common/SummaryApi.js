@@ -1,3 +1,4 @@
+import { userDetails } from "../../Backend/controllers/user.controller"
 import ResetPassword from "../src/pages/ResetPassword"
 
 export const baseURL = "http://localhost:8081"
@@ -26,6 +27,10 @@ const SummaryApi = {
     refreshToken: {
         url: '/api/user/refresh-token',
         method: 'post'
+    },
+    userDetails: {
+        url: '/api/user/user_details',
+        method: 'get'
     }
 }
 

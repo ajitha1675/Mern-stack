@@ -62,6 +62,15 @@ const Header = () => {
 
           {/**Desktop */}
           <div className='hidden lg:flex items-center gap-10'>
+            {
+              user?._id ?(
+                <div>
+                  <div>
+                       <p>Account</p>
+                  </div>
+                </div>
+              )
+            }
             <button onClick={redirectToLoginPage}>Login</button>  
             <button className='flex items-center gap-2 bg-green-900 hover:bg-green-500 px-3 py-3 rounded text-white'>
             <button>
