@@ -1,36 +1,44 @@
-import { Outlet } from 'react-router-dom'
-import './App.css'
+import { Outlet } from 'react-router-dom';
+import './App.css';
 import Header from './Component/Header';
 import Footer from './Component/Footer';
 import toast, { Toaster } from 'react-hot-toast';
 import { useEffect } from 'react';
 import fetchUserDetails from '../utils/fetchUserDetails';
-import { setUserDetails, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { setUserDetails} from './store/userSlice';// Correct import
+
 
 function App() {
-  const dispatch =  useDispatch()
+  const dispatch = useDispatch();
 
-  const fetchUser = async()=>{
-    const userData = await fetchUserDetails()
-    console.log("userData",userData.data);  
-    dispatch(setUserDetails(userData.data))
-  }
+  const fetchUser = async () => {
+    try {
+      const userData = await fetchUserDetails();
+      if (userData?.data) {
+        dispatch(setUserDetails(userData.data));
+      }
+    } catch (error) {
+      console.error('Error fetching user details:', error);
+    }
+  };
 
-  useEffect(()=>{
-    fetchUser()
-  },[])
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
   return (
     <>
       <Header />
 
-      <main className='min-h-[80vh]'>
-          <Outlet/>
+      <main className="min-h-[80vh]">
+        <Outlet />
       </main>
-      <Footer/>
+
+      <Footer />
       <Toaster />
     </>
-
-  )
+  );
 }
 
-export default App
+export default App;
